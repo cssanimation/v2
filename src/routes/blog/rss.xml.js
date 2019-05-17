@@ -1,11 +1,11 @@
-import send from "@polka/send";
-import get_posts from "../blog/_posts.js";
+import send from '@polka/send'
+import get_posts from '../blog/_posts.js'
 
-const months = ",Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec".split(",");
+const months = ',Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec'.split(',')
 
 function formatPubdate(str) {
-  const [y, m, d] = str.split("-");
-  return `${d} ${months[+m]} ${y} 12:00 +0000`;
+  const [y, m, d] = str.split('-')
+  return `${d} ${months[+m]} ${y} 12:00 +0000`
 }
 
 const rss = `
@@ -32,17 +32,17 @@ const rss = `
 		</item>
 	`
     )
-    .join("")}
+    .join('')}
 </channel>
 </rss>
 `
-  .replace(/>[^\S]+/gm, ">")
-  .replace(/[^\S]+</gm, "<")
-  .trim();
+  .replace(/>[^\S]+/gm, '>')
+  .replace(/[^\S]+</gm, '<')
+  .trim()
 
 export function get(req, res) {
   send(res, 200, rss, {
-    "Cache-Control": `max-age=${30 * 60 * 1e3}`,
-    "Content-Type": "application/rss+xml"
-  });
+    'Cache-Control': `max-age=${30 * 60 * 1e3}`,
+    'Content-Type': 'application/rss+xml'
+  })
 }

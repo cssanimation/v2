@@ -1,12 +1,12 @@
 <script context="module">
   export async function preload({ params }) {
-    const res = await this.fetch(`blog/${params.slug}.json`);
-    return res.ok ? { post: await res.json() } : this.error(404, "Not found");
+    const res = await this.fetch(`blog/${params.slug}.json`)
+    return res.ok ? { post: await res.json() } : this.error(404, 'Not found')
   }
 </script>
 
 <script>
-  export let post;
+  export let post
 </script>
 
 <style>
