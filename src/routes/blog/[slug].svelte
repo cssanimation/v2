@@ -10,119 +10,205 @@
 </script>
 
 <style>
-  .post {
-    padding: var(--top-offset) var(--side-nav) 6rem var(--side-nav);
-    max-width: var(--main-width);
+  .post-header {
+    font-size: 16px;
+    background-color: darken(#fff, 20%);
+    height: 26em;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .post-header.shorter {
+    background: none;
+    height: 64px;
+  }
+
+  .post-header nav {
+    padding: 1em 2em;
+  }
+
+  .shorter aside {
+    padding-top: 4.5em;
+  }
+
+  .logo {
+    position: absolute;
+    left: 1em;
+    top: 1em;
+    width: 100px;
+    z-index: 10;
+  }
+
+  .demo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin-top: 4rem;
+  }
+
+  /* Right to left overrides */
+  .rtl h1,
+  .rtl h2,
+  .rtl h3,
+  .rtl h4,
+  .rtl h5,
+  .rtl p {
+    direction: rtl;
+    unicode-bidi: embed;
+  }
+  .rtl img {
+    display: block;
+    margin: 0 0 0 0;
+  }
+  .rtl pre {
+    margin: 2em 0;
+  }
+  .rtl .demo-container {
+    margin: 2em 0 2em auto;
+  }
+
+  .rtl .post-footer h1,
+  .rtl .post-footer h2,
+  .rtl .post-footer h3,
+  .rtl .post-footer h4,
+  .rtl .post-footer h5,
+  .rtl .post-footer p {
+    direction: ltr;
+  }
+
+  .post-aside {
+    padding-top: 3em;
+  }
+
+  .post-aside h3 {
+    margin: 0;
+  }
+
+  .demo-link {
+    margin: 0 0 1em;
+  }
+
+  .demo-link .button {
+    background: #333;
+    border: none;
+    color: #fff;
+  }
+
+  .translations p {
+    font-size: 0.75em;
+  }
+
+  .translations ul {
+    list-style: none;
+    font-size: 0.8em;
+    padding: 0 0.5em 0;
+  }
+
+  .translations li::before {
+    content: '\21FE  ';
+  }
+
+  .translate {
+    margin-top: 2rem;
+    margin-bottom: 0;
+  }
+
+  .translation-message {
+    margin-bottom: 1.5rem;
+  }
+
+  .powered-by {
+    font-size: 0.5em;
+    color: #888;
+    padding-top: 0;
+  }
+
+  .powered-by img {
+    width: 67px;
+    margin-left: 4px;
+  }
+
+  .translator p {
+    font-size: 0.8em;
+  }
+
+  .post-title {
+    margin-top: 1.25em;
+  }
+
+  .sidebar-email-signup,
+  .sidebox {
+    background: #eee;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 0.5em 1em;
+  }
+
+  .sidebox h4 {
+    font-size: 1.75em;
+    margin: 0 0 0.5em;
+  }
+
+  .sidebox input[type='email'] {
+    width: 100%;
+  }
+
+  .sidebox input[type='submit'] {
+    font-size: 9px !important;
+  }
+
+  .course-sidebar {
+    background: #eee;
+    border-radius: 0.5em;
+    margin: 1.5em 0;
+    padding: 0.25em 0.5em 0.5em;
+  }
+  .course-sidebar img {
+    height: 5em;
     margin: 0 auto;
   }
-
-  h1 {
-    font-size: 4rem;
-    font-weight: 400;
+  .course-sidebar h3,
+  .course-sidebar p {
+    color: #666;
+    font-size: 18px;
+    text-align: center;
+    margin: 0.5em 0;
+    font-size: 14px;
+    font-style: italic;
   }
 
-  .standfirst {
-    font-size: var(--h4);
-    color: var(--second);
-    margin: 0 0 1em 0;
+  /* Media queries here for various scales using font-size as a handle */
+
+  @media (max-width: 768px) {
+    .container {
+      width: 95%;
+    }
   }
 
-  .byline {
-    margin: 0 0 6rem 0;
-    padding: 1.6rem 0 0 0;
-    border-top: var(--border-w) solid #6767785b;
-    font-size: var(--h6);
-    text-transform: uppercase;
-  }
-
-  .post h1 {
-    color: var(--second);
-    max-width: 20em;
-    margin: 0 0 0.8rem 0;
-  }
-
-  .post :global(h2) {
-    margin: 2em 0 0.5em 0;
-    /* color: var(--second); */
-    color: var(--text);
-    font-size: var(--h3);
-    font-weight: 300;
-  }
-
-  .post :global(figure) {
-    margin: 1.6rem 0 3.2rem 0;
-  }
-
-  .post :global(figure) :global(img) {
-    max-width: 100%;
-  }
-
-  .post :global(figcaption) {
-    color: var(--second);
-    text-align: left;
-  }
-
-  .post :global(video) {
-    width: 100%;
-  }
-
-  .post :global(blockquote) {
-    max-width: none;
-    border-left: 4px solid #eee;
-    background: #f9f9f9;
-    border-radius: 0 var(--border-r) var(--border-r) 0;
-  }
-
-  .post :global(code) {
-    padding: 0.3rem 0.8rem 0.3rem;
-    margin: 0 0.2rem;
-    top: -0.1rem;
-    background: var(--back-api);
-  }
-
-  .post :global(pre) :global(code) {
-    padding: 0;
-    margin: 0;
-    top: 0;
-    background: transparent;
-  }
-
-  .post :global(aside) {
-    float: right;
-    margin: 0 0 1em 1em;
-    width: 16rem;
-    color: var(--second);
-    z-index: 2;
-  }
-
-  .post :global(.max) {
-    width: 100%;
-  }
-
-  .post :global(iframe) {
-    width: 100%;
-    height: 420px;
-    margin: 2em 0;
-    border-radius: var(--border-r);
-    border: 0.8rem solid var(--second);
-  }
-
-  @media (min-width: 910px) {
-    .post :global(.max) {
-      width: calc(100vw - 2 * var(--side-nav));
-      margin: 0 calc(var(--main-width) / 2 - 50vw);
-      text-align: center;
+  @media (max-width: 550px) {
+    .post-header {
+      font-size: 12px;
     }
 
-    .post :global(.max) > :global(*) {
-      width: 100%;
-      max-width: 1200px;
+    .author-details,
+    .demo-link,
+    .sidebar-email-signup,
+    .course-sidebar {
+      display: none;
     }
+  }
 
-    .post :global(iframe) {
-      width: 100%;
-      max-width: 1100px;
-      margin: 2em auto;
+  @media (max-width: 420px) {
+    .post-header {
+      font-size: 8px;
     }
   }
 </style>
