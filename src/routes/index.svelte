@@ -1,52 +1,101 @@
+<script context="module">
+  export async function preload() {
+    const posts = await this.fetch(`blog.json`).then(r => r.json())
+    return { posts }
+  }
+</script>
+
+<script>
+  export let posts
+</script>
+
 <style>
-  h1,
-  figure,
-  p {
-    text-align: center;
+  .posts {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+    min-height: calc(100vh - var(--nav-h));
+    padding: var(--top-offset) var(--side-nav) 6rem var(--side-nav);
+    max-width: var(--main-width);
     margin: 0 auto;
   }
 
-  h1 {
-    font-size: 2.8em;
+  h2 {
+    display: inline-block;
+    margin: 3.2rem 0 0.4rem 0;
+    color: var(--text);
+    max-width: 18em;
+    font-size: var(--h3);
+    font-weight: 400;
+  }
+
+  .post:first-child {
+    margin: 0 0 2rem 0;
+    padding: 0 0 4rem 0;
+    border-bottom: var(--border-w) solid #6767785b; /* based on --second */
+  }
+
+  .post:first-child h2 {
+    font-size: 4rem;
+    font-weight: 400;
+    color: var(--second);
+  }
+
+  .post:first-child::before,
+  .post:nth-child(2)::before {
+    content: 'Latest post • ' attr(data-pubdate);
+    color: var(--flash);
+    font-size: var(--h6);
+    font-weight: 400;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    font-weight: 700;
-    margin: 0 0 0.5em 0;
   }
 
-  figure {
-    margin: 0 0 1em 0;
+  .post:nth-child(2)::before {
+    content: 'Older posts';
   }
 
-  img {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 0 1em 0;
+  .post p {
+    font-size: var(--h5);
+    max-width: 30em;
+    color: var(--second);
   }
 
-  p {
-    margin: 1em auto;
+  .post > a {
+    display: block;
   }
 
-  @media (min-width: 480px) {
-    h1 {
-      font-size: 4em;
-    }
+  .posts a:hover,
+  .posts a:hover > h2 {
+    color: var(--flash);
   }
 </style>
 
 <svelte:head>
-  <title>Sapper project template</title>
+  <title>CSS Animation</title>
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="Svelte blog"
+    href="blog/rss.xml" />
+
+  <meta name="twitter:title" content="Svelte blog" />
+  <meta
+    name="twitter:description"
+    content="Articles about Svelte and UI development" />
+  <meta name="Description" content="Articles about Svelte and UI development" />
 </svelte:head>
 
-<h1>Great success!</h1>
-
-<figure>
-  <img alt="Borat" src="great-success.png" />
-  <figcaption>HIGH FIVE!</figcaption>
-</figure>
-
-<p>
-  <strong>
-    Try editing this file (routes/index.html) to test live reloading.
-  </strong>
-</p>
+<div class="posts stretch">
+  {#each posts as post}
+    <article class="post" data-pubdate={post.metadata.dateString}>
+      <a
+        class="no-underline"
+        rel="prefetch"
+        href="blog/{post.slug}"
+        title="Read the article »">
+        <h2>{post.metadata.title}</h2>
+        <p>{post.metadata.description}</p>
+      </a>
+    </article>
+  {/each}
+</div>

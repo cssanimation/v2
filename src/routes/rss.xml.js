@@ -1,5 +1,5 @@
 import send from '@polka/send'
-import get_posts from '../blog/_posts.js'
+import get_posts from './_posts.js'
 
 const months = ',Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec'.split(',')
 

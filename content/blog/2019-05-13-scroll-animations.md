@@ -13,8 +13,6 @@ home_image: /images/posts/scroll-animations/home.png
 tweet_text: Bake your own scroll animations using requestAnimationFrame and will-change
 ---
 
-<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
-
 It's time to add some animation to our page when a visitor scrolls. For this tutorial I've set up a demo page all about pizza. The content isn't important but it'll act as a long scrollable page. Let's bring some animation to the page.
 
 In this tutorial we'll learn how to make use of the `requestAnimationFrame` method and detect when elements are within the viewport of the browser. We'll introduce a new `will-change` property and use that to make sure our animations are smooth, and we'll put these together with some transitions to create animations that are triggered on scroll.
@@ -52,9 +50,9 @@ We won't be using jQuery for this one. Instead we're going to use a handy method
 Back in the day when building something like this I'd have used the `scroll` browser event, and then checked the state of the page while scrolling.
 
 ```js
-window.addEventListener("scroll", function() {
-  console.log("Scrollin'");
-});
+window.addEventListener('scroll', function() {
+  console.log("Scrollin'")
+})
 ```
 
 This might work in some ways, but sadly this has a couple of big problems. The first being efficiency. When scrolling, the `console.log` here will fire like crazy. If we're doing anything like parsing the DOM tree or other heavy tasks, this will add a lot of overhead to the browser. It could very easily slow things down and make our animations janky.
@@ -71,8 +69,8 @@ To set up our `requestAnimationFrame` method we'll apply it to a variable. This 
 var scroll =
   window.requestAnimationFrame ||
   function(callback) {
-    window.setTimeout(callback, 1000 / 60);
-  };
+    window.setTimeout(callback, 1000 / 60)
+  }
 ```
 
 Here we're saying that `scroll` should be the `window.requestAnimationFrame` method, or (if this isn't available), use this simple function that waits one-sixtieth of a second before calling the callback.
@@ -80,7 +78,7 @@ Here we're saying that `scroll` should be the `window.requestAnimationFrame` met
 Next we'll grab the elements on the page we want to look out for.
 
 ```js
-const elementsToShow = document.querySelectorAll(".show-on-scroll");
+const elementsToShow = document.querySelectorAll('.show-on-scroll')
 ```
 
 This will look for all elements with class `show-on-scroll` and return them as an array we can loop through.
@@ -91,13 +89,13 @@ Let's set up that looping function.
 function loop() {
   elementsToShow.forEach(function(element) {
     if (isElementInViewport(element)) {
-      element.classList.add("is-visible");
+      element.classList.add('is-visible')
     } else {
-      element.classList.remove("is-visible");
+      element.classList.remove('is-visible')
     }
-  });
+  })
 
-  scroll(loop);
+  scroll(loop)
 }
 ```
 
@@ -110,7 +108,7 @@ This means that as soon as `requestAnimationFrame` allows us, it'll repeat this 
 As it stands, this won't do much yet. We need to kick it off by calling the `loop` function.
 
 ```js
-loop();
+loop()
 ```
 
 ### Checking if in the viewport
@@ -121,10 +119,10 @@ There's one bit missing. In the `loop` function we're calling a method `isElemen
 // Helper function from: http://stackoverflow.com/a/7557433/274826
 function isElementInViewport(el) {
   // special bonus for those using jQuery
-  if (typeof jQuery === "function" && el instanceof jQuery) {
-    el = el[0];
+  if (typeof jQuery === 'function' && el instanceof jQuery) {
+    el = el[0]
   }
-  var rect = el.getBoundingClientRect();
+  var rect = el.getBoundingClientRect()
   return (
     (rect.top <= 0 && rect.bottom >= 0) ||
     (rect.bottom >=
@@ -134,7 +132,7 @@ function isElementInViewport(el) {
     (rect.top >= 0 &&
       rect.bottom <=
         (window.innerHeight || document.documentElement.clientHeight))
-  );
+  )
 }
 ```
 
